@@ -1,7 +1,7 @@
 extern crate rand;
 
 use std::io; // std -> 표준 라이브러리, :: -> 연관함수
-use std::cmp::Ordering;
+// use std::cmp::Ordering;
 use rand::Rng;
 
 fn main() {
@@ -22,14 +22,25 @@ fn main() {
 
         println!("You guessed: {}", guess);
 
-        match guess.cmp(&secret_number) {
-            Ordering::Less    => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
-            Ordering::Equal   => {
-                println!("You win!");
-                break;
-            }
+        let result = guess == secret_number;
+
+        if result == true {
+            println!("You win!");
+            break;
+        } else if guess < secret_number {
+            println!("Too small");
+        } else {
+            println!("Too big!");
         }
+
+        // match guess.cmp(&secret_number) {
+        //     Ordering::Less    => println!("Too small!"),
+        //     Ordering::Greater => println!("Too big!"),
+        //     Ordering::Equal   => {
+        //         println!("You win!");
+        //         break;
+        //     }
+        // }
     }
  
 }
