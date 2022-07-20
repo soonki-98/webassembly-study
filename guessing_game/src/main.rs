@@ -6,7 +6,8 @@ use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
-    let secret_number = rand::thread_rng().gen_range(1..=100); // 1 <= x < 101
+    let secret_number = rand::thread_rng().gen_range(1..=100); // 1 <= x < 100
+    
     let mut chance = 10;
 
     loop {
@@ -19,7 +20,10 @@ fn main() {
         // let guess: u32 = guess.trim().parse().expect("please type a number");
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => continue,
+            Err(str) => {
+                println!("{str}");
+                continue;
+            },
         };
 
         println!("You guessed: {}", guess);
@@ -27,6 +31,7 @@ fn main() {
 
         let result = guess == secret_number;
 
+        // 조건문 사용
         if result == true {
             println!("You win!"); 
             println!("Your score is {}", chance * 10);
@@ -36,13 +41,7 @@ fn main() {
         } else {
             println!("Too big!. chance = {chance}");
         }
-
-        if chance == 0 {
-            println!("You failed!!!");
-            println!("answer is {secret_number}");
-            println!("Your score is {}", chance * 10);
-            break;
-        }
+        // Ordering 사용 
         // match guess.cmp(&secret_number) {
         //     Ordering::Less    => println!("Too small!"),
         //     Ordering::Greater => println!("Too big!"),
@@ -51,6 +50,13 @@ fn main() {
         //         break;
         //     }
         // }
+        if chance == 0 {
+            println!("You failed!!!");
+            println!("answer is {secret_number}");
+            println!("Your score is {}", chance * 10);
+            break;
+        }
+        
     }
  
 }
